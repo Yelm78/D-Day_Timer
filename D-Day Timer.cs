@@ -19,6 +19,10 @@ namespace BarCitizenKR
             InitializeComponent();
             ui_Switch();
             this.Focus(); // 폼에 포커스 설정
+
+            //기본값 : 바 시티즌 코리아 D-Day
+            this.dday = new DateTime(2025, 05, 03, 19, 00, 00);
+
             //LoadCustomFont();
             //ApplyCustomFont();
 
@@ -48,8 +52,7 @@ namespace BarCitizenKR
                     }
                     else
                     {
-                        MessageBox.Show(msg);
-                        this.dday = new DateTime(2025, 05, 03, 19, 00, 00);
+                        MessageBox.Show(msg);                        
                     }
                 }
             }
