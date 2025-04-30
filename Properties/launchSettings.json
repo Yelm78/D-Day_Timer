@@ -1,8 +1,7 @@
 {
   "profiles": {
     "D-Day Timer": {
-      "commandName": "Project",
-      "commandLineArgs": "2025-04-30_08:53:00"
+      "commandName": "Project"
     }
   }
 }
