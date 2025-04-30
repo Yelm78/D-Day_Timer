@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
-
 namespace BarCitizenKR
 {
     public partial class frmDdayTimer : Form
@@ -182,67 +181,41 @@ namespace BarCitizenKR
         }
 
         #region 문자열 처리 함수들
-        //문자열 자르기(Right)
-        private string StringRight(string Text, int TextLenth)
+        // 문자열 자르기 (Right)
+        private string StringRight(string text, int length)
         {
-            string ConvertText;
-            if (Text.Length < TextLenth)
-            {
-                TextLenth = Text.Length;
-            }
-            ConvertText = Text.Substring(Text.Length - TextLenth, TextLenth);
-            return ConvertText;
+            if (string.IsNullOrEmpty(text)) return string.Empty;
+            return text.Length <= length ? text : text.Substring(text.Length - length);
         }
 
-        //문자열 자르기(Left)
-        private string StringLeft(string Text, int TextLenth)
+        // 문자열 자르기 (Left)
+        private string StringLeft(string text, int length)
         {
-            string ConvertText;
-            if (Text.Length < TextLenth)
-            {
-                TextLenth = Text.Length;
-            }
-            ConvertText = Text.Substring(0, TextLenth);
-            return ConvertText;
+            if (string.IsNullOrEmpty(text)) return string.Empty;
+            return text.Length <= length ? text : text.Substring(0, length);
         }
 
-        //문자열 자르기(Mid)
-        private string StringMid(string Text, int Startint, int Endint)
+        // 문자열 자르기 (Mid)
+        private string StringMid(string text, int start, int length)
         {
-            string ConvertText;
-            if (Startint < Text.Length || Endint < Text.Length)
-            {
-                ConvertText = Text.Substring(Startint, Endint);
-                return ConvertText;
-            }
-            else
-            {
-                return Text;
-            }
+            if (string.IsNullOrEmpty(text) || start >= text.Length) return string.Empty;
+            if (start + length > text.Length) length = text.Length - start;
+            return text.Substring(start, length);
         }
 
-        //문자찾기(Find)
-        private int[] StringFind(string Text, string FindText)
+        // 문자열 찾기 (Find)
+        private List<int> StringFind(string text, string findText)
         {
-            int[] FindPlace = { };
-            int j = 0;
-            for (int i = 1; i <= Text.Length; i++)
-            {
-                if (FindText == StringMid(Text, i, 1))
-                {
-                    FindPlace[j] = i;
-                    j++;
-                }
-            }
+            if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(findText)) return new List<int>();
 
-            if (FindPlace != null)
+            var findPlaces = new List<int>();
+            int index = text.IndexOf(findText, StringComparison.Ordinal);
+            while (index != -1)
             {
-                return FindPlace;
+                findPlaces.Add(index);
+                index = text.IndexOf(findText, index + 1, StringComparison.Ordinal);
             }
-            else
-            {
-                return null;
-            }
+            return findPlaces;
         }
         #endregion
     }
